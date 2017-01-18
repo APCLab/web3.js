@@ -7,6 +7,7 @@
         var Web3 = require('web3');
         var web3 = new Web3();
         web3.setProvider(new web3.providers.HttpProvider('http://localhost:8545'));
+        // change loclahost to your host IP address
 
         var source = "" +
         "contract Contract { " +
@@ -34,8 +35,10 @@
         };
     
         var createContract = function () {
-            // let's assume that we have a private key to coinbase ;)
-            web3.eth.defaultAccount = web3.eth.coinbase;
+            // let's assume that web3.eth.accounts[0] is your account, and change password to your account's password
+            web3.eth.defaultAccount = web3.eth.accounts[0];
+            web3.personal.unlockAccount(web3.eth.defaultAccount, 'password', 300);
+
             
             document.getElementById('create').style.visibility = 'hidden';
             document.getElementById('status').innerText = "transaction sent, waiting for confirmation";
