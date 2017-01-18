@@ -8,6 +8,7 @@
     var Web3 = require('web3');
     var web3 = new Web3();
     web3.setProvider(new web3.providers.HttpProvider("http://localhost:8545"));
+    // change localhost to your host IP address
 
     // solidity code code
     var source = "" +
@@ -29,8 +30,9 @@
         document.getElementById('create').style.visibility = 'hidden'; 
         document.getElementById('code').innerText = code;
 
-        // let's assume that coinbase is our account
-        web3.eth.defaultAccount = web3.eth.coinbase;
+        // let's assume that web3.eth.accounts[0] is your account, and change password to your account's password
+        web3.eth.defaultAccount = web3.eth.accounts[0];
+        web3.personal.unlockAccount(web3.eth.defaultAccount, 'password', 300);
 
         // create contract
         document.getElementById('status').innerText = "transaction sent, waiting for confirmation";
